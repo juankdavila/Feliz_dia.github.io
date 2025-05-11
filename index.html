@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="img/mama1.jpeg">
+    <meta property="og:url" content="https://tusitio.github.io">
+    <meta property="og:type" content="website">
+    <title>Feliz Día de las Madres</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #e91e63;
+            --color-secondary: #f8bbd0;
+            --color-accent: #880e4f;
+            --color-light: #fff9fc;
+            --color-dark: #4a0726;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .luz-fondo {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .sobre {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            height: 400px;
+            margin: 20px auto;
+            perspective: 1500px;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .sobre-frente {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #ffb6c1, #ffc0cb);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transform-origin: center bottom;
+            transition: transform 1.5s ease;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .sobre-mensaje {
+            font-size: 1.8em;
+            color: var(--color-accent);
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .sobre-frente::before {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            border: 2px dashed var(--color-accent);
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        .sobre-interior {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            transform-origin: center bottom;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        .sobre-abierto .sobre-frente {
+            transform: rotateX(80deg);
+            z-index: 15;
+        }
+
+        .sobre-titulo {
+            text-align: center;
+            font-size: 2.8em;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+
+        .sobre-subtitulo {
+            text-align: center;
+            font-size: 1.4em;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+        }
+
+        .tarjeta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .titulo {
+            color: var(--color-accent);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-family: "Times New Roman", serif;
+        }
+
+        .mensaje {
+            color: var(--color-dark);
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .boton {
+            position: relative;
+            background: linear-gradient(145deg, var(--color-primary), var(--color-accent));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .boton:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .boton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .boton:hover::before {
+            left: 100%;
+        }
+
+        .mensaje-oculto {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .galeria {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .imagen-galeria {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .imagen-galeria:hover {
+            transform: scale(1.1);
+        }
+
+        .imagen-principal {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .imagen-principal:hover {
+            transform: scale(1.05);
+        }
+
+        .firma {
+            font-style: italic;
+            margin-top: 20px;
+            color: var(--color-accent);
+            font-size: 1.2em;
+            font-family: "Brush Script MT", cursive;
+        }
+
+        .gota {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: caida 10s linear infinite;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        @keyframes caida {
+            0% {
+                top: -50px;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .corazon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23e91e63' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .flor {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23e91e63' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .perrito {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23e91e63' viewBox='0 0 24 24'%3E%3Cpath d='M20 6c-1.66 0-3 1.34-3 3 0 1.23.76 2.28 1.85 2.72-.31.91-.85 1.65-1.53 2.18L16 14c-.23-.39-.69-.67-1.18-.67-.55 0-1.04.29-1.27.72-.26-.12-.54-.25-.83-.36-.2-.36-.51-.67-.9-.92-.38-.25-.86-.47-1.33-.62.41-.91.74-1.99.93-3.07.13-.58.13-1.18-.01-1.77.41-.5.56-1.11.56-1.77 0-1.66-1.34-3-3-3s-3 1.34-3 3c0 .66.21 1.27.56 1.77-.14.59-.14 1.19-.01 1.77.2 1.08.52 2.16.93 3.07-.47.15-.95.37-1.33.62-.39.25-.64.56-.9.92-.29.11-.57.24-.83.36-.23-.43-.72-.72-1.27-.72-.49 0-.95.28-1.18.67l-2.32-2.48c-.68-.53-1.22-1.27-1.53-2.18C4.76 11.28 4 10.23 4 9c0-1.66-1.34-3-3-3-1.1 0-2.1.61-2.62 1.49C-.47 7.06.1 9.27 1 10.5c.58-.62 1.36-1.08 2.24-1.34.79 1.24 1.5 2.46 2.24 3.66 1.61-1.25 2.89-2.46 3.9-3.57-.15-.65-.24-1.32-.24-2.02C7 2.34 9.34 0 12 0s5 2.34 5 5c0 .7-.09 1.37-.24 2.02 1.01 1.11 2.29 2.32 3.9 3.57 1.48-1.2 2.31-2.42 2.88-3.66 1.11.26 2.01.72 2.62 1.34-.9-1.23-1.47-3.44-1.02-5.01C22.1 3.61 21.1 2 20 2c-1.66 0-3 1.34-3 3 0 1.23.76 2.28 1.85 2.72-.31.91-.85 1.65-1.53 2.18L16 14c-.23-.39-.69-.67-1.18-.67-.55 0-1.04.29-1.27.72-.26-.12-.54-.25-.83-.36-.2-.36-.51-.67-.9-.92-.38-.25-.86-.47-1.33-.62.41-.91.74-1.99.93-3.07.13-.58.13-1.18-.01-1.77.41-.5.56-1.11.56-1.77 0-1.66-1.34-3-3-3s-3 1.34-3 3c0 .66.21 1.27.56 1.77-.14.59-.14 1.19-.01 1.77.2 1.08.52 2.16.93 3.07-.47.15-.95.37-1.33.62-.39.25-.64.56-.9.92-.29.11-.57.24-.83.36-.23-.43-.72-.72-1.27-.72-.49 0-.95.28-1.18.67l-2.32-2.48c-.68-.53-1.22-1.27-1.53-2.18C4.76 11.28 4 10.23 4 9z'/%3E%3C/svg%3E");
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .control-musica {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-musica button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--color-primary);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .control-musica button:hover {
+            transform: scale(1.1);
+        }
+
+        .control-musica span {
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    
+
+    <div class="luz-fondo" style="top: 10%; left: 20%; background: rgb(22, 233, 187);"></div>
+    <div class="luz-fondo" style="bottom: 10%; right: 15%; background: #f80858;"></div>
+
+    <div class="control-musica">
+        <span>Música:</span>
+        <button onclick="toggleMusica()">▶</button>
+    </div>
+
+    <!-- Audio -->
+    <audio id="musicaFondo">
+        <source src="mp3/musica_1.mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    
+
+
+    <!-- Efectos flotantes -->
+    <div class="gota corazon" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="gota flor" style="left: 70%; animation-delay: 2s;"></div>
+    <div class="gota perrito" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="gota corazon" style="left: 30%; animation-delay: 6s;"></div>
+    <div class="gota flor" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="gota perrito" style="left: 50%; animation-delay: 10s;"></div>
+    <div class="gota corazon" style="left: 50%; animation-delay: 12s;"></div>
+    <div class="gota flor" style="left: 50%; animation-delay: 14s;"></div>
+    <div class="gota corazon" style="left: 50%; animation-delay: 16s;"></div>
+    <div class="gota flor" style="left: 50%; animation-delay: 18s;"></div>
+    <div class="gota perrito" style="left: 50%; animation-delay: 20s;"></div>
+
+    <div class="sobre" id="sobre">
+        <div class="sobre-frente" onclick="abrirSobre()">
+            <div class="sobre-mensaje">Haz clic AQUI 💌</div>
+        </div>
+        <div class="sobre-interior">
+            <div class="tarjeta">
+                <div class="titulo">¡Feliz Día de las Madres!</div>
+                <div class="mensaje">
+                    Gracias por ser el corazón de nuestra familia, por tu amor incondicional y tu dulzura infinita.
+                    Hoy celebramos todo lo que eres y lo que significas para nosotros.
+                
+                    <div>
+                        <img src="img/mama1.jpeg" class="imagen-principal" alt="">
+                    </div>
+                </div>
+                <button class="boton" onclick="mostrarMensaje()">Ver mensaje especial</button>
+
+                <div class="mensaje-oculto" id="mensajeEspecial">
+                    Eres la luz que guía nuestros pasos, el abrazo que reconforta y el amor que nunca falla. <br>
+                    ¡ESPERO QUE LA PASEN SUPER ESPECIAL CON SUS FAMILIAS! 💖
+                    <div class="galeria">
+                        <img src="img/mama2.jpg" class="imagen-galeria" alt="Imagen 1">
+                        <img src="img/mama3.jpg"class="imagen-galeria" alt="Imagen 2">
+                        <img src="img/mama4.jpg" class="imagen-galeria" alt="Imagen 3">
+                        <img src="img/mama5.jpg" class="imagen-galeria" alt="Imagen 3">
+                        <img src="img/mama6.jpg" class="imagen-galeria" alt="Imagen 3">
+                        <img src="img/mama7.jpg" class="imagen-galeria" alt="Imagen 3">
+                        <img src="img/mama9.jpg" class="imagen-galeria" alt="Imagen 3">
+                        
+                        
+                    </div>
+                    
+                    <div class="firma">CON MUCHO CARIÑO, DIOS ME LAS BENDIGA>
+
+                    </div> JUANK</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+    // Variable para controlar el estado de la música
+        let musicaReproduciendo = false;
+        const musicaFondo = document.getElementById('musicaFondo');
+        const botonMusica = document.querySelector('.control-musica button');
+        
+        // Función para abrir el sobre
+        function abrirSobre() {
+            document.getElementById('sobre').classList.add('sobre-abierto');
+            
+            // Intentamos reproducir la música si no está reproduciéndose ya
+            if (!musicaReproduciendo) {
+                toggleMusica();
+            }
+        }
+
+        // Función para mostrar el mensaje especial
+        function mostrarMensaje() {
+            document.getElementById('mensajeEspecial').style.display = 'block';
+            
+            // Intentamos reproducir la música si no está reproduciéndose ya
+            if (!musicaReproduciendo) {
+                toggleMusica();
+            }
+        }
+        
+        // Función para controlar la reproducción de música
+        function toggleMusica() {
+            if (musicaReproduciendo) {
+                musicaFondo.pause();
+                botonMusica.innerHTML = '▶';
+                musicaReproduciendo = false;
+            } else {
+                // Intentamos reproducir la música
+                let reproduccionPromesa = musicaFondo.play();
+                
+                if (reproduccionPromesa !== undefined) {
+                    reproduccionPromesa.then(_ => {
+                        // Reproducción exitosa
+                        botonMusica.innerHTML = '⏸';
+                        musicaReproduciendo = true;
+                    }).catch(error => {
+                        // Mostrar error si la reproducción falla
+                        console.error('Error al reproducir música:', error);
+                        alert('No se pudo reproducir la música automáticamente. Haz clic en el botón de música para intentarlo de nuevo.');
+                    });
+                }
+            }
+        }
+        
+        // Cargar el audio después de la interacción del usuario
+        document.addEventListener('click', function() {
+            if (!musicaFondo.getAttribute('data-loaded')) {
+                musicaFondo.load();
+                musicaFondo.setAttribute('data-loaded', 'true');
+            }
+        }, {once: true});
+    </script>
+</body>
+</html>
